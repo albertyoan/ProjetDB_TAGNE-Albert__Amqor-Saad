@@ -93,3 +93,55 @@ O — Objectif
 Obtenir une analyse des besoins assez précise, complète et cohérente pour construire
 ensuite un MCD MERISE normalisé en 3FN. Toutes les données nécessaires doivent être
 identifiées avant la construction du MCD.
+
+
+Pour le mcd : 
+A. Les achats (boutique + abonnement)
+
+C'est le cœur client → achète → offre. Comme un achat a une date, un paiement et peut contenir plusieurs articles, on en fait une entité ACHAT (comme "Commande" dans ton cours).
+
+CLIENT (0,n) —— PASSER —— (1,1) ACHAT
+→ un client passe 0 à plusieurs achats ; un achat appartient à un seul client.
+ACHAT (1,n) —— CONTENIR —— (0,n) OFFRE (attribut porté : quantité)
+→ un achat contient au moins une offre ; une offre peut être dans plusieurs achats. C'est exactement le schéma « commande contient produits » de ton CM, avec la quantité posée sur l'association.
+
+Le paiement : un achat a un paiement, un paiement règle un achat → 1,1 —— 1,1. Ta diapo 19 dit : deux cardinalités max à 1 des deux côtés → on fusionne. Donc je mets date_paiement et moyen_paiement dans ACHAT, pas d'entité Paiement séparée. (On la garderait seulement si un achat pouvait être payé en plusieurs fois.)
+
+B. La billetterie — ton association n-aire ✅
+
+Un billet est lié à un match précis ET une place précise : c'est ce qui le distingue d'un article de boutique, et c'est ton association ternaire (n=3) :
+
+CLIENT (0,n) —— ACHETER_BILLET —— (0,n) MATCH et —— (0,n) PLACE (attribut porté : prix)
+→ une seule association reliant les trois. Un client, un match ou une place peuvent chacun apparaître dans 0 à n achats de billets.
+
+C. La structure du stade — tes entités faibles ✅
+
+STADE (1,n) —— COMPOSER —— (1,1)(R) TRIBUNE
+TRIBUNE (1,n) —— COMPOSER —— (1,1)(R) PLACE
+
+Le (R) (identifiant relatif, comme salle/cinéma diapo 25) : une tribune ne s'identifie que dans son stade, et une place que dans sa tribune. num_place seul ne suffit pas → entité faible.
+
+D. Les matchs
+
+MATCH (1,1) —— CONTRE —— (0,n) EQUIPE
+→ un match se joue contre un seul adversaire ; une équipe est affrontée dans plusieurs matchs. (Le club, lui, est implicite : tous les matchs sont les siens, lieu_match dit domicile/extérieur.)
+MATCH (1,1) —— SE_DEROULER —— (0,n) STADE
+
+E. Le droit d'image
+
+CONTRAT (1,1) —— SIGNER —— (0,n) CLIENT
+→ un contrat est signé par un seul client ; un client peut en signer plusieurs. (« Seul un client entreprise signe » est une règle métier : ça se note en contrainte, la cardinalité ne peut pas le dire toute seule.)
+
+F. L'actionnaire
+
+Entité isolée : nombre_actions lui suffit, et la base ne concerne qu'un seul club (implicite), donc rien à relier. Si tu veux éviter l'entité solitaire, on peut ajouter une entité CLUB/SOCIÉTÉ et faire ACTIONNAIRE —DÉTENIR— CLUB — dis-moi si tu préfères.
+
+Une correction honnête sur les éléments avancés. Je t'avais dit « 3 dispos », mais en faisant MATCH une entité (obligatoire pour ta ternaire billet), l'association récursive équipe-équipe disparaît. Tu en as donc 2 solides, ce qui remplit l'exigence : l'entité faible (C) + l'association n-aire (B). Si tu veux un 3ᵉ par sécurité, le plus naturel serait un parrainage : CLIENT —PARRAINE— CLIENT (récursive), réaliste pour un club (un supporter en parraine un autre). À ajouter si ça te parle.
+
+Petits nettoyages que la modélisation a révélés (le sujet autorise à les noter) :
+
+nom_article = le libellé d'une offre merch → on l'absorbe dans libelle_offre.
+type_offre ne vaut plus que merchandising / abonnement (le billet est la ternaire, le droit d'image est CONTRAT).
+saison devient un attribut d'OFFRE (utile pour les abonnements).
+
+Pour la 3FN : c'est justement le fait d'avoir séparé EQUIPE, STADE, etc. en entités propres qui te met en 3FN. Si tu avais laissé nom_equipe dans MATCH, tu aurais eu une dépendance transitive
