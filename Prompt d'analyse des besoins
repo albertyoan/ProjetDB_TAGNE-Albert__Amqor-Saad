@@ -1,0 +1,95 @@
+Prompt d'analyse des besoins - Methode RICARDO
+
+R — Rôle
+Agissez comme un analyste fonctionnel et concepteur de bases de données spécialisé
+dans la modélisation de systèmes d'information avec la méthode MERISE.
+Vous devez analyser la gestion des revenus commerciaux d'un club de football
+professionnel et identifier précisément les données qui devront être stockées dans
+une future base de données relationnelle.
+
+I — Instructions
+Analysez le fonctionnement commercial du club [Nom] et identifiez :
+- les acteurs intervenant dans le système (supporters, entreprises partenaires,
+  service commercial du club...) ;
+- les principales activités génératrices de revenus (vente de billets, abonnements,
+  articles de boutique, loges VIP, contrats de sponsoring...) ;
+- les informations nécessaires à la gestion de ces ventes ;
+- les relations entre ces informations ;
+- les règles métier à respecter.
+Produisez ensuite :
+- une liste structurée des règles métier ;
+- un dictionnaire de données complet ;
+- les entités potentielles pour construire le futur MCD ;
+- les associations potentielles entre ces entités.
+Ne produisez pas encore le MCD ni le code SQL.
+
+C — Contexte
+[Nom] est un club de football professionnel (exemple fictif) dont on veut modéliser
+la partie commerciale / gestion des revenus. Le principe central : un client achète
+une ou plusieurs offres/services.
+- Un client peut être un particulier (supporter) ou une entreprise (pour les loges
+  ou le sponsoring). Il possède un compte, des coordonnées, et peut effectuer
+  plusieurs achats.
+- Une offre peut être : un billet pour un match précis, un abonnement à la saison,
+  un article de la boutique, une place en loge VIP, ou un pack de sponsoring.
+- Un billet donne accès à un match donné, dans une tribune et à une place précises
+  du stade.
+- Un abonnement donne accès à tous les matchs à domicile d'une saison.
+- Le club joue des matchs (à domicile ou à l'extérieur), à une date, contre une
+  équipe adverse, dans un stade.
+- Le stade est composé de tribunes, elles-mêmes composées de places (sièges)
+  identifiées par un numéro.
+- La boutique vend des articles (maillots, écharpes, produits dérivés) avec un
+  stock et un prix.
+- Les entreprises partenaires signent des contrats de sponsoring sur une période.
+- Chaque achat donne lieu à un paiement (montant, date, moyen de paiement).
+Le système doit permettre de suivre les ventes, les paiements, les abonnements et
+les contrats de partenariat.
+
+A — Contraintes additionnelles
+- La modélisation doit être assez détaillée pour permettre la construction ultérieure
+  d'un MCD MERISE.
+- Le dictionnaire de données doit éviter les données redondantes et permettre une
+  modélisation en troisième forme normale (3FN).
+- Les règles métier doivent être précises et vérifiables.
+- Chaque donnée doit être associée à un type / une catégorie pertinente.
+- Le système devra pouvoir représenter : plusieurs clients ; plusieurs offres ;
+  plusieurs achats par client ; plusieurs billets ; plusieurs matchs par saison ;
+  plusieurs tribunes et places par stade ; plusieurs articles de boutique ;
+  plusieurs abonnements ; plusieurs contrats de sponsoring ; plusieurs paiements.
+- La modélisation devra permettre d'intégrer au moins deux éléments de modélisation
+  avancée parmi :
+  - une association récursive (ex : un match oppose deux équipes, "équipe" étant une
+    même entité jouant deux rôles ; ou un parrainage entre supporters) ;
+  - une association n-aire avec n > 2 (ex : l'achat d'un billet lie un client, un
+    match et une place précise) ;
+  - une entité faible et une entité forte (ex : une "place" n'existe que par rapport
+    à la "tribune" qui la contient, elle-même rattachée au "stade").
+  Ces éléments doivent correspondre à des relations réellement pertinentes et ne pas
+  être ajoutés artificiellement.
+
+R — Références
+Pour construire le modèle, inspirez-vous du fonctionnement commercial général des
+grands clubs de football (billetterie, abonnements, boutique en ligne, offres VIP,
+partenariats), par exemple : [À COMPLÉTER : lien vers la billetterie ou la boutique
+en ligne d'un club réel]. Les références servent uniquement à comprendre le
+fonctionnement général du domaine. Ne copiez pas de structures internes ou de
+données propriétaires.
+
+D — Rendement désiré
+Présentez la réponse sous la forme suivante :
+1. Présentation du domaine — description courte du fonctionnement commercial du club.
+2. Acteurs — tableau | Acteur | Rôle |
+3. Règles métier — au moins 20 règles précises, numérotées.
+4. Dictionnaire de données — entre 25 et 35 données, tableau
+   | Nom de la donnée | Description | Type | Exemple | Entité/objet concerné |.
+   Éviter les doublons et les données calculables inutiles à stocker.
+5. Entités potentielles — liste des principales entités.
+6. Associations potentielles — liste des relations + brève signification.
+7. Éléments de modélisation avancée — identifier une association récursive, une
+   n-aire et une entité faible/forte, et expliquer leur pertinence pour le club.
+
+O — Objectif
+Obtenir une analyse des besoins assez précise, complète et cohérente pour construire
+ensuite un MCD MERISE normalisé en 3FN. Toutes les données nécessaires doivent être
+identifiées avant la construction du MCD.
