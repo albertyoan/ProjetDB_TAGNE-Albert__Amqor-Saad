@@ -106,5 +106,6 @@ aux clients entreprises.
 
 ## Étape 2 : Modelisation du MCD — Gestion des revenus d'un club de football
 
-<img width="1500" height="756" alt="Capture d’écran 2026-10-15 103753" src="https://github.com/user-attachments/assets/c4ce7eb7-c7f7-4ed2-afea-bae00bc8dd34" />
+<img width="1513" height="763" alt="Capture d’écran 2026-10-15 152505" src="https://github.com/user-attachments/assets/e647716c-db4c-4f3f-9e57-27823746aaa7" />
+
 
