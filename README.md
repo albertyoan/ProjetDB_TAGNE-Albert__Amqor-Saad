@@ -103,3 +103,7 @@ aux clients entreprises.
 | montant_contrat | Montant du contrat (€) | DECIMAL | 12,2 | 5000000.00 | Contrat droit d'image |
 | date_debut_contrat | Date de début du contrat | DATE | — | 2025-07-01 | Contrat droit d'image |
 | date_fin_contrat | Date de fin du contrat | DATE | — | 2028-06-30 | Contrat droit d'image |
+
+## Étape 2 : Modelisation du MCD — Gestion des revenus d'un club de football
+
+
