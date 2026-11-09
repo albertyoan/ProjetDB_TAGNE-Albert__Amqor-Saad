@@ -108,5 +108,27 @@ aux clients entreprises.
 
 <img width="1417" height="770" alt="Capture d’écran 2026-10-31 165030" src="https://github.com/user-attachments/assets/3b189de7-4afa-4bf4-bb1e-138d5602ce03" />
 
+## Etape 3 : ARBRES
+     
+            
+            π id_achat              → 1 ligne
+                |
+        σ id_equipe='psg'           → 2 lignes
+                |
+     ⋈ billet.id_match = match_.id_match   → 22 lignes
+          /            \
+     BILLET          MATCH_
+    22 lignes       10 lignes
 
+
+
+            π id_achat              → 1 ligne
+                |
+     ⋈ billet.id_match = match_.id_match   → 2 lignes
+          /            \
+     BILLET       σ id_equipe='psg'  → 2 lignes
+    22 lignes            |
+                      MATCH_
+                     10 lignes
+    
 
