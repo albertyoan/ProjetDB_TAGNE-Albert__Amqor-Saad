@@ -1,0 +1,53 @@
+Prompt d'insertion des données - Méthode RICARDO
+
+R — Rôle
+Agissez comme un administrateur de bases de données MySQL chargé de remplir une base de
+test réaliste pour un club de football professionnel.
+
+I — Instructions
+À partir du script de création des tables et du script de contraintes fournis en référence :
+- identifiez l'ordre d'insertion qui respecte les clés étrangères (tables parentes d'abord) ;
+- générez des requêtes INSERT INTO pour chaque table, dans cet ordre ;
+- vérifiez que chaque valeur respecte les contraintes CHECK, UNIQUE et NOT NULL ;
+- vérifiez que chaque clé étrangère référence une ligne déjà insérée.
+
+C — Contexte
+La base « football » gère les revenus d'un club de Ligue 1 inspiré de l'Olympique
+Lyonnais : clients (supporters et entreprises), achats, offres (billetterie, merchandising,
+abonnement, droit d'image), billets (un achat, un match, une place), stades composés de
+tribunes et de places, matchs contre des équipes adverses, contrats de sponsoring et de
+droits TV signés par des entreprises, et actionnaires du club.
+Les données couvrent la saison 2025-2026.
+
+A — Contraintes additionnelles
+- Volumes attendus : 2 stades, 6 tribunes, 50 places, 8 équipes, 10 matchs,
+  21 clients (15 supporters et 6 entreprises), 16 offres, 30 achats, environ 40 lignes
+  d'achat (offres contenues dans un achat), environ 20 billets, 6 contrats, 7 actionnaires.
+- Un client est soit un supporter, soit une entreprise, jamais les deux.
+- Seules les entreprises signent des contrats.
+- Les billets ne concernent que des matchs à domicile ; un match à l'extérieur n'a pas de stade (NULL).
+- Une même place ne peut être vendue qu'une seule fois pour un même match.
+- Respecter les valeurs autorisées : type_offre (billetterie, merchandising, abonnement,
+  droit d'image), moyen_paiement (carte bancaire, especes, virement, prelevement, cheque),
+  type_contrat (sponsoring, droits tv), type_actionnaire (personne physique, societe),
+  lieu_match (domicile, exterieur).
+- Formats : saison « AAAA-AAAA » avec deux années consécutives, SIRET de 14 chiffres,
+  email valide, date de paiement postérieure ou égale à la date d'achat, date de fin de
+  contrat postérieure à la date de début, prix et montants positifs.
+- Écrire les valeurs texte en minuscules et sans accents.
+- Données fictives mais réalistes : noms d'entreprises inventés, aucune donnée personnelle réelle.
+
+R — Références
+- Le script 1_creation.sql (création des tables) ;
+- le script 2_contraintes.sql (contraintes de validation) ;
+- le site https://www.ol.fr pour des tarifs réalistes (billets, abonnements, boutique).
+
+D — Rendement désiré
+Un unique script SQL commençant par « use football; », avec un bloc INSERT INTO par table,
+dans l'ordre des dépendances, et un commentaire au-dessus des blocs complexes (par exemple
+les billets, regroupés par match). Pas de texte en dehors du script.
+
+O — Objectif
+Obtenir un fichier 3_insertion.sql qui s'exécute sans aucune erreur après 1_creation.sql et
+2_contraintes.sql, et qui fournit assez de données variées pour tester des requêtes de
+sélection, d'agrégation, de jointure et des requêtes imbriquées.
